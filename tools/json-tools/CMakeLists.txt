@@ -32,7 +32,7 @@ add_library(json STATIC
     src/json.cpp
 )
 
-target_include_directories(json PRIVATE 
+target_include_directories(json PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 

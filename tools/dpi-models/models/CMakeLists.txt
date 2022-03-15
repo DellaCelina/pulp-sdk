@@ -1,0 +1,12 @@
+include(dpi_model)
+
+add_subdirectory(camera)
+add_subdirectory(eeprom)
+add_subdirectory(flash/spiflash)
+add_subdirectory(jtag/proxy)
+add_subdirectory(lcd)
+add_subdirectory(microphone)
+add_subdirectory(ram/spiram)
+add_subdirectory(test/spim_verif)
+add_subdirectory(uart/uart)
+add_subdirectory(wifi)
