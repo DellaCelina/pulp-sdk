@@ -1,0 +1,1 @@
+execute_process(COMMAND python3-config --includes OUTPUT_VARIABLE python3_INCLUDE_DIRS OUTPUT_STRIP_TRAILING_WHITESPACE)

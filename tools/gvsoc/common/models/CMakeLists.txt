@@ -1,0 +1,7 @@
+add_subdirectory(board)
+add_subdirectory(cpu/iss)
+add_subdirectory(devices)
+add_subdirectory(cache)
+add_subdirectory(interco)
+add_subdirectory(memory)
+add_subdirectory(utils)

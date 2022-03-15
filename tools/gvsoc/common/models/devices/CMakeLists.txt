@@ -1,0 +1,5 @@
+add_subdirectory(hyperbus)
+add_subdirectory(sound)
+add_subdirectory(spiflash)
+add_subdirectory(testbench)
+add_subdirectory(uart)
