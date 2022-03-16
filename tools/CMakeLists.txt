@@ -1,0 +1,6 @@
+add_subdirectory(json-tools)
+add_subdirectory(gapy)
+add_subdirectory(gap-configs)
+add_subdirectory(pulp-debug-bridge)
+add_subdirectory(dpi-models)
+add_subdirectory(gvsoc)

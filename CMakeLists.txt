@@ -7,8 +7,4 @@ set(CMAKE_MODULE_PATH ${SDK_HOME_DIR}/cmake)
 
 set(PULPOS_ARCHI ${SDK_HOME_DIR}/rtos/pulpos/pulp_archi/include)
 
-add_subdirectory(tools/json-tools)
-add_subdirectory(tools/gap-configs)
-add_subdirectory(tools/pulp-debug-bridge)
-add_subdirectory(tools/dpi-models)
-add_subdirectory(tools/gvsoc)
+add_subdirectory(tools)
