@@ -4,6 +4,56 @@ project(pulp-configs LANGUAGES NONE)
 
 option(WithConfigGenerators "Install the config tools" OFF)
 
+set(ENV{PYTHONPATH} "${CMAKE_CURRENT_SOURCE_DIR}/python:$ENV{PYTHONPATH}")
+
+# generate property from json
+set(PROPERTIES
+    udma/version
+    timer/version
+    stdout/version
+    soc_eu/version
+	fc_itc/version
+    icache_ctrl/version
+    xne/version
+    fll/version
+    event_unit/version
+	cluster_ctrl/version
+    pulp_chip
+    cluster/version
+    dma/version
+    udma/spim/version
+	udma/cpi/version
+    padframe/version
+    pulp_chip_family
+    pmu/version
+	udma/hyper/version
+    efuse/version
+    udma/i2c/version
+    rtc/version
+    gpio/version
+    fc/iss_class
+    pe/iss_class
+    udma/i2s/version
+    udma/mram/version
+    hwce/version
+    udma/tcdm/version
+    hwacc/base
+    udma/uart/version
+    udma/hyper/version ima/version
+)
+
+foreach(prop ${PROPERTIES})
+    set(PROP_FLAGS "--property=${prop} ${PROP_FLAGS}")
+endforeach()
+
+execute_process(
+    COMMAND 
+        ${CMAKE_CURRENT_SOURCE_DIR}/bin/plpinfo
+        cmakegen
+        --cmakefile=${CMAKE_BINARY_DIR}/cmake/props.cmake
+        ${PROP_FLAGS}
+)
+
 set(CONFIGS_DIR "configs")
 set(CONFIGS_SRC_DIR "${CMAKE_CURRENT_BINARY_DIR}/${CONFIGS_DIR}")
 set(CONFIGS_DST_DIR "${CMAKE_CURRENT_BINARY_DIR}/${CONFIGS_DIR}")

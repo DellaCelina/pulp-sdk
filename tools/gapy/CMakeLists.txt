@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(gapy)
 
+set(ENV{PYTHONPATH} "${CMAKE_CURRENT_SOURCE_DIR}:$ENV{PYTHONPATH}")
+
 include(install_files)
 
 file(GLOB_RECURSE PYTHON_FILES
