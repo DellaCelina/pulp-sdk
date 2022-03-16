@@ -3,7 +3,7 @@ function(vp_model)
         VP
         ""
         "NAME;DEST"
-        "SOURCES;INCLUDE_DIRS;LIBRARIES;CFLAGS;LDFLAGS"
+        "SOURCES;INCLUDE_DIRS;LIBRARIES;COMPONENTS;CFLAGS;LDFLAGS"
         ${ARGN})
 
     find_package(python3)
@@ -16,10 +16,6 @@ function(vp_model)
     target_link_libraries(${TARGET} PUBLIC pulpvp ${VP_LIBRARIES})
     target_compile_options(${TARGET} PRIVATE ${CFLAGS} ${VP_CFLAGS})
     target_link_options(${TARGET} PRIVATE ${LDFLAGS} ${VP_LDFLAGS})
-    install(
-        TARGETS ${TARGET}
-        DESTINATION lib/${VP_DEST}
-    )
 
     set(DBG_TARGET ${TARGET}-debug)
     add_library(${DBG_TARGET} SHARED ${VP_SOURCES})
@@ -27,10 +23,6 @@ function(vp_model)
     target_link_libraries(${DBG_TARGET} PUBLIC pulpvp-debug ${VP_LIBRARIES})
     target_compile_options(${DBG_TARGET} PRIVATE -DVP_TRACE_ACTIVE=1 ${CFLAGS} ${VP_CFLAGS})
     target_link_options(${DBG_TARGET} PRIVATE ${LDFLAGS} ${VP_LDFLAGS})
-    install(
-        TARGETS ${DBG_TARGET}
-        DESTINATION lib/${VP_DEST}
-    )
 
     set(SV_TARGET ${TARGET}-sv)
     add_library(${SV_TARGET} SHARED ${VP_SOURCES})
@@ -38,9 +30,14 @@ function(vp_model)
     target_link_libraries(${SV_TARGET} PUBLIC pulpvp-sv ${VP_LIBRARIES})
     target_compile_options(${SV_TARGET} PRIVATE -DVP_TRACE_ACTIVE=1 ${CFLAGS} ${VP_CFLAGS})
     target_link_options(${SV_TARGET} PRIVATE ${LDFLAGS} ${VP_LDFLAGS})
+
     install(
-        TARGETS ${SV_TARGET}
+        TARGETS ${TARGET} ${DBG_TARGET} ${SV_TARGET}
         DESTINATION lib/${VP_DEST}
     )
 
+    install(
+        FILES ${VP_COMPONENTS}
+        DESTINATION python/${VP_DEST}
+    )
 endfunction()
