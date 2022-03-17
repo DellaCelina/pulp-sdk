@@ -7,3 +7,6 @@
 [submodule "ext/xtensor/xsimd"]
 	path = ext/xtensor/xsimd
 	url = https://github.com/xtensor-stack/xsimd
+[submodule "toolchain"]
+	path = toolchain
+	url = https://github.com/pulp-platform/pulp-riscv-gnu-toolchain.git

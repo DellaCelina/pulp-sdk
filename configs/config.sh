@@ -1,0 +1,1 @@
+export BOARD_NAME=pulp

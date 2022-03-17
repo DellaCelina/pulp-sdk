@@ -21,8 +21,8 @@ install(
     DESTINATION lib
 )
 
-install_files(
-    FILES ${HEADERS}
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/include
-    DEST include
+install(
+    DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.hpp;*.h"
 )

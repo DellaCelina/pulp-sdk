@@ -1,12 +1,6 @@
-include(install_files)
-file(GLOB BIN_FILES
-    bin/*
-)
-
-install_files(
-    FILES ${BIN_FILES}
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/bin
-    DEST bin
+install(
+    DIRECTORY bin/
+    DESTINATION bin
 )
 
 add_subdirectory(engine)

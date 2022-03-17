@@ -16,8 +16,11 @@ vp_model(
         src/ne16_debug.cpp
     INCLUDE_DIRS
         include
+    LIBRARIES
+        xtensor
+        xsimd
+        xtl
     CFLAGS
         -DXTENSOR_USE_XSIMD
-        -isystem ${XTENSOR_INCLUDE_DIR}
         -march=native
 )

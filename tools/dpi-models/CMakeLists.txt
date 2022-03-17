@@ -7,8 +7,6 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-include(install_files)
-
 file(GLOB COMMON_SRCS
     src/qspim.cpp
     src/gpio.cpp
@@ -60,10 +58,10 @@ target_link_options(pulpdpi PRIVATE ${LDFLAGS})
 
 install(TARGETS pulpperiph pulpdpi DESTINATION lib)
 
-install_files(
-    FILES ${HEADER_FILES}
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/include
-    DEST include
+install(
+    DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.hpp;*.h"
 )
 
 add_subdirectory(models)

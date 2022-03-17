@@ -3,21 +3,6 @@ project(pulp-debug-bridge)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include(install_files)
-
-file(GLOB_RECURSE HEADER_FILES
-    include/*.hpp
-    include/*.h
-)
-
-file(GLOB_RECURSE BIN_FILES
-    bin/*
-)
-
-file(GLOB_RECURSE PYTHON_FILES 
-    python/*.py
-)
-
 set(INCLUDE_DIRS
     src
     include
@@ -35,16 +20,16 @@ set(SRCS
     src/cables/jtag-proxy/jtag-proxy.cpp
 )
 
-find_package(FTDI)
+find_package(FTDI REQUIRED)
 set(FTDI_CFLAGS ${FTDI_INCLUDE_DIRS})
 set(FTDI_LDFLAGS ${FTDI_LIBRARIES})
 
-find_package(SDL2)
+find_package(SDL2 REQUIRED)
 set(SDL2_CFLAGS ${SDL2_INCLUDE_DIRS})
 set(SDL2_LDFLAGS ${SDL2_LIBRARIES})
 
 set(CFLAGS -O3 -g -MMD -MP ${FTDI_CFLAGS} ${SDL2_CFLAGS})
-set(LDFLAGS -O3 -g ${FTDI_LDFLAGS} ${SDL_LDFLAGS})
+set(LDFLAGS -O3 -g ${FTDI_LDFLAGS} ${SDL2_LDFLAGS})
 
 set(TARGET pulpdebugbridge)
 
@@ -58,20 +43,19 @@ target_link_options(${TARGET} PRIVATE ${LDFLAGS})
 
 install(TARGETS ${TARGET} DESTINATION lib)
 
-install_files(
-    DEST include
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/include
-    FILES ${HEADER_FILES}
+install(
+    DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.hpp;*.h"
 )
 
-install_files(
-    DEST bin
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/bin
-    FILES ${BIN_FILES}
+install(
+    DIRECTORY bin/
+    DESTINATION bin
 )
 
-install_files(
-    DEST python
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/python
-    FILES ${PYTHON_FILES}
+install(
+    DIRECTORY python/
+    DESTINATION python
+    FILES_MATCHING PATTERN "*.py"
 )

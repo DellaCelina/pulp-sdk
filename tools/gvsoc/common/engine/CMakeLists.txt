@@ -15,15 +15,6 @@ file(GLOB VP_SRCS
     src/trace/raw/trace_dumper.cpp
 )
 
-file(GLOB_RECURSE VP_HEADERS
-    include/*.hpp
-    include/*.h
-)
-
-file(GLOB_RECURSE PYTHON_FILES
-    python/*.py
-)
-
 set(CFLAGS -MMD -MP -O2 -g -Werror -Wall)
 set(LDFLAGS -O2 -g -Werror -Wall -Wl,--whole-archive -Wl,--no-whole-archive)
 
@@ -76,14 +67,14 @@ install(TARGETS pulpvp pulpvp-debug pulpvp-sv
 install(TARGETS gvsoc_launcher gvsoc_launcher_debug
     DESTINATION bin)
 
-install_files(
-    FILES ${VP_HEADERS}
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/include
-    DEST include
+install(
+    DIRECTORY include/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.hpp;*.h"
 )
 
-install_files(
-    FILES ${PYTHON_FILES}
-    BASE ${CMAKE_CURRENT_SOURCE_DIR}/python
-    DEST python
+install(
+    DIRECTORY python/
+    DESTINATION python
+    FILES_MATCHING PATTERN "*.py"
 )

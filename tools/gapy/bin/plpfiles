@@ -24,11 +24,13 @@ parser.add_argument("--debug", dest="debug", action='store_true', default=False,
 
 [args, otherArgs] = parser.parse_known_args() 
 
-if 'copy' in args.command:
+parser.add_argument("--input-dir", dest="input_dir", default=None, help="Specify input directory containing the files to copy")
+parser.add_argument("--output-dir", dest="output_dir", default=None, help="Specify output directory where to copy the files")
+parser.add_argument("--item", dest="item", default=None, help="Specify the item name in the config file which contains the files to copy")
 
-    parser.add_argument("--item", dest="item", default=None, help="Specify the item name in the config file which contains the files to copy")
-    parser.add_argument("--input-dir", dest="input_dir", default=None, help="Specify input directory containing the files to copy")
-    parser.add_argument("--output-dir", dest="output_dir", default=None, help="Specify output directory where to copy the files")
+if 'cmakegen' in args.command:
+    parser.add_argument("--cmakefile", dest="cmakefile", default=None, help="Specify cmake file path")
+    parser.add_argument("--var", dest="var", default=None, help="Specify files variable name")
 
 args = parser.parse_args()
 
@@ -39,12 +41,26 @@ def copy(files, input_dir=args.input_dir, output_dir=args.output_dir):
     print (' '.join(files))
     return 0
 
+def cmakegen(files):
+    files = files.copy(args.item, None, None)
+    try:
+        os.makedirs(os.path.dirname(args.cmakefile))
+    except:
+        pass
+    with open(args.cmakefile, 'w') as cmakefile:
+        cmakefile.write('set(%s\n' % args.var)
+        for file in files:
+            cmakefile.write('%s\n' % file)
+        cmakefile.write(')')
+    return 0
+
 
 
 
 commands = {
-      'copy'     : ['Copy files to SDK', copy],
-      }
+    'copy'     : ['Copy files to SDK', copy],
+    'cmakegen' : ['Generate cmake file', cmakegen]
+}
 
 
 
@@ -75,7 +91,6 @@ class Files(object):
 
 
 def handleCommands(files, log=None):
-
   global pendingCommands
 
   if len(args.command) == 0:
@@ -99,7 +114,6 @@ def handleCommands(files, log=None):
             print ()
             print (bcolors.FAIL + 'FATAL ERROR: the command \'%s\' has failed' % (cmd) + bcolors.ENDC)
             return
-
 
 
 
