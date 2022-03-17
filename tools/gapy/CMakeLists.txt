@@ -75,11 +75,23 @@ execute_process(
         --var=HAL_SRC_FILES
 )
 
+set(ARCHI_FILES_CMAKE ${CMAKE_BINARY_DIR}/cmake/archi_files.cmake)
+execute_process(
+    COMMAND
+        ${CMAKE_CURRENT_SOURCE_DIR}/bin/plpfiles
+        cmakegen
+        --item=archi_files
+        --cmakefile=${ARCHI_FILES_CMAKE}
+        --var=ARCHI_FILES
+)
+
+
 install(
     FILES
         ${PROPS_CMAKE}
         ${HAL_FILES_CMAKE}
         ${HAL_SRC_FILES_CMAKE}
+        ${ARCHI_FILES_CMAKE}
     DESTINATION cmake
 )
 
