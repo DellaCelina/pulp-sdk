@@ -20,7 +20,7 @@ if(BUILD_TOOLCHAIN)
             --prefix=${CMAKE_INSTALL_PREFIX}/toolchain
             --with-arch=rv32imc
             --with-cmodel=medlow
-        COMMAND make
+        COMMAND make -j4
         WORKING_DIRECTORY ${SDK_HOME_DIR}/toolchain
         COMMENT "Build toolchain"
     )
