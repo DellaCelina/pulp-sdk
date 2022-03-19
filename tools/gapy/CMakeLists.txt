@@ -40,6 +40,8 @@ set(PROPERTIES
   udma/uart/version
   udma/hyper/version
   ima/version
+  soc/nb_cluster
+  cluster/nb_pe
 )
 
 foreach(prop ${PROPERTIES})
